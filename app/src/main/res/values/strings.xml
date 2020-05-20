@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">PANDA</string>
+
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_confirmation">Password confirmation</string>
+    <string name="reset_password">Reset password</string>
+
+    <string name="sign_up">Don`t have an account? Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="create_account">Create account</string>
+    <string name="existing_account">Already have an account? Sign in</string>
+
+    <string name="field_is_empty">Field is empty.</string>
+    <string name="bad_email">Bad email.</string>
+    <string name="length_must_be_more">Length must be > 8.</string>
+    <string name="password_not_the_same">Password not the same.</string>
+
+    <string name="wrong_email_or_password">Wrong email or password.</string>
+    <string name="current_account_already_exists">Current account already exists.</string>
+    <string name="account_has_been_created_successfully">Account has been created successfully. You may login.</string>
+    <string name="password_has_been_changed_successfully">Password has been changed successfully. You may login with new credentials.</string>
+    <string name="current_account_does_not_exists">Current account does not exists.</string>
+
+    <string name="your_password_has_been_changed">Your password has been changed.</string>
+    <string name="your_current_password">Your current password</string>
+
+</resources>
