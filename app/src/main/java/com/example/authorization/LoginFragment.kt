@@ -30,43 +30,30 @@ class LoginFragment : Fragment() {
             inflater,
             R.layout.fragment_login,
             container,
-            false
-        )
+            false)
         binding.userCredentials = userViewModel
         val view = binding.root
 
         view.login_button_sign_up.setOnClickListener(activity as View.OnClickListener)
         view.login_button_forget_password.setOnClickListener(activity as View.OnClickListener)
 
-        setUpValidation(view)
+        setUpValidation()
 
         view.login_button_sign_in.setOnClickListener {
             view.fragment_login.requestFocus()
-            var isFormValid =
-                Validator.checkForm(
-                    R.id.fragment_login
-                )
+            val isFormValid = Validator.checkForm(R.id.fragment_login)
             if (isFormValid) {
                 if (userViewModel.checkPassword()) {
-                    startActivity(
-                        Intent(
-                            context,
-                            UserInfoActivity::class.java
-                        )
-                            .putExtra(getString(R.string.email), userViewModel.email))
+                    startActivity(Intent(context, UserInfoActivity::class.java).putExtra(getString(R.string.email), userViewModel.email))
                 }
                 else{
-                    Snackbar.make(
-                        view,
-                        R.string.wrong_email_or_password,
-                        Snackbar.LENGTH_SHORT
-                    )
-                        .setBackgroundTint(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.errorBackground
-                            )
+                    Snackbar
+                        .make(
+                            view,
+                            R.string.wrong_email_or_password,
+                            Snackbar.LENGTH_SHORT
                         )
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.errorBackground))
                         .show()
                 }
             }
@@ -91,26 +78,23 @@ class LoginFragment : Fragment() {
         Validator.objects.removeIf { it.fragmentId == R.id.fragment_login }
     }
 
-    private fun setUpValidation(view: View){
+    private fun setUpValidation(){
+        val view = binding.root
+
         Validator(
             R.id.fragment_login,
             view.login_input_email,
             view.login_input_layout_email,
             mapOf(
-                getString(R.string.field_is_empty) to fun() =
-                    !view.login_input_email.text.isNullOrEmpty(),
-                getString(R.string.bad_email) to fun() =
-                    Patterns.EMAIL_ADDRESS.matcher(view.login_input_email.text.toString())
-                        .matches())
+                getString(R.string.field_is_empty) to fun() = !view.login_input_email.text.isNullOrEmpty(),
+                getString(R.string.bad_email) to fun() = Patterns.EMAIL_ADDRESS.matcher(view.login_input_email.text.toString()).matches())
         )
 
         Validator(
             R.id.fragment_login,
             view.login_input_password,
             view.login_input_layout_password,
-            mapOf(
-                getString(R.string.field_is_empty) to fun() =
-                    !view.login_input_password.text.isNullOrEmpty())
+            mapOf(getString(R.string.field_is_empty) to fun() = !view.login_input_password.text.isNullOrEmpty())
         )
     }
 }

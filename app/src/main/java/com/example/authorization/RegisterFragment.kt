@@ -34,8 +34,11 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_register, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_register,
+            container,
+            false)
         binding.userCredentials = userViewModel
         val view = binding.root
 
@@ -43,7 +46,7 @@ class RegisterFragment : Fragment() {
 
         view.register_button_create_account.setOnClickListener {
             view.fragment_register.requestFocus()
-            var isFormValid = Validator.checkForm(R.id.fragment_register)
+            val isFormValid = Validator.checkForm(R.id.fragment_register)
             if (isFormValid) {
                 if (userViewModel.isUserExists()){
                     Snackbar
@@ -51,22 +54,13 @@ class RegisterFragment : Fragment() {
                             view,
                             R.string.current_account_already_exists,
                             Snackbar.LENGTH_LONG)
-                        .setAction(R.string.login) {
-                            (activity as MainActivity).replaceFragmentOn(
-                                LoginFragment()
-                            )
-                        }
-                        .setActionTextColor(ContextCompat.getColor(requireContext(),
-                            R.color.buttonTextColorLight
-                        ))
+                        .setAction(R.string.login) { (activity as MainActivity).replaceFragmentOn(LoginFragment()) }
+                        .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.buttonTextColorLight))
                         .show()
                 }
                 else {
                     userViewModel.createOrUpdateCredentials()
-                    userViewModel.clearPassword()
-                    (activity as MainActivity).replaceFragmentOn(
-                        LoginFragment()
-                    )
+                    (activity as MainActivity).replaceFragmentOn(LoginFragment())
                     Snackbar
                         .make(
                             view,
@@ -77,7 +71,7 @@ class RegisterFragment : Fragment() {
             }
         }
 
-        setUpValidation(view)
+        setUpValidation()
         return view
     }
 
@@ -86,18 +80,16 @@ class RegisterFragment : Fragment() {
         userViewModel.clearPassword()
     }
 
-    private fun setUpValidation(view: View){
+    private fun setUpValidation(){
+        val view = binding.root
 
         Validator(
             R.id.fragment_register,
             view.register_input_email,
             view.register_input_layout_email,
             mapOf(
-                getString(R.string.field_is_empty) to fun() =
-                    !view.register_input_email.text.isNullOrEmpty(),
-                getString(R.string.bad_email) to fun() =
-                    Patterns.EMAIL_ADDRESS.matcher(view.register_input_email.text.toString())
-                        .matches())
+                getString(R.string.field_is_empty) to fun() = !view.register_input_email.text.isNullOrEmpty(),
+                getString(R.string.bad_email) to fun() = Patterns.EMAIL_ADDRESS.matcher(view.register_input_email.text.toString()).matches())
         )
 
         Validator(
@@ -105,11 +97,8 @@ class RegisterFragment : Fragment() {
             view.register_input_password,
             view.register_input_layout_password,
             mapOf(
-                getString(R.string.field_is_empty) to fun() =
-                    !view.register_input_password.text.isNullOrEmpty(),
-                getString(R.string.length_must_be_more) to fun() =
-                    view.register_input_password.text!!.length > 8)
+                getString(R.string.field_is_empty) to fun() = !view.register_input_password.text.isNullOrEmpty(),
+                getString(R.string.length_must_be_more) to fun() = view.register_input_password.text!!.length > 8)
         )
     }
-
 }

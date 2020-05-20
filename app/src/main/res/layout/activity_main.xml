@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo"
-            tools:context=".MainActivity"></FrameLayout>
+            tools:context=".MainActivity"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_main"

@@ -1,4 +1,4 @@
-package com.example.authorization
+package com.example.authorization.helpers
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

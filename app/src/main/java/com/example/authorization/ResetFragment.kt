@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import com.example.authorization.databinding.FragmentResetBinding
+import com.example.authorization.helpers.AppExecutors
 import com.example.authorization.helpers.Validator
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_reset.view.*
@@ -29,8 +30,11 @@ class ResetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,
-            R.layout.fragment_reset, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_reset,
+            container,
+            false)
         binding.userCredentials = userViewModel
         val view = binding.root
 
@@ -38,16 +42,14 @@ class ResetFragment : Fragment() {
 
         view.reset_button_reset_password.setOnClickListener{
             view.fragment_reset.requestFocus()
-            var isFormValid = Validator.checkForm(R.id.fragment_reset)
+            val isFormValid = Validator.checkForm(R.id.fragment_reset)
             if (isFormValid) {
                 if (userViewModel.isUserExists()) {
                     userViewModel.createOrUpdateCredentials()
 
                     sendEmail(activity)
 
-                    (activity as MainActivity).replaceFragmentOn(
-                        LoginFragment()
-                    )
+                    (activity as MainActivity).replaceFragmentOn(LoginFragment())
                     Snackbar
                         .make(
                             view,
@@ -61,12 +63,8 @@ class ResetFragment : Fragment() {
                             view,
                             R.string.current_account_does_not_exists,
                             Snackbar.LENGTH_LONG)
-                        .setAction(R.string.register) {
-                            (activity as MainActivity).replaceFragmentOn(RegisterFragment())
-                        }
-                        .setActionTextColor(ContextCompat.getColor(requireContext(),
-                            R.color.buttonTextColorLight
-                        ))
+                        .setAction(R.string.register) { (activity as MainActivity).replaceFragmentOn(RegisterFragment()) }
+                        .setActionTextColor(ContextCompat.getColor(requireContext(),R.color.buttonTextColorLight))
                         .show()
                 }
             }
@@ -99,11 +97,8 @@ class ResetFragment : Fragment() {
             view.reset_input_email,
             view.reset_input_layout_email,
             mapOf(
-                getString(R.string.field_is_empty) to fun() =
-                    !view.reset_input_email.text.isNullOrEmpty(),
-                getString(R.string.bad_email) to fun() =
-                    Patterns.EMAIL_ADDRESS.matcher(view.reset_input_email.text.toString())
-                        .matches())
+                getString(R.string.field_is_empty) to fun() = !view.reset_input_email.text.isNullOrEmpty(),
+                getString(R.string.bad_email) to fun() = Patterns.EMAIL_ADDRESS.matcher(view.reset_input_email.text.toString()).matches())
         )
 
         Validator(
@@ -111,10 +106,8 @@ class ResetFragment : Fragment() {
             view.reset_input_password,
             view.reset_input_layout_password,
             mapOf(
-                getString(R.string.field_is_empty) to fun() =
-                    !view.reset_input_password.text.isNullOrEmpty(),
-                getString(R.string.length_must_be_more) to fun() =
-                    view.reset_input_password.text!!.length > 8)
+                getString(R.string.field_is_empty) to fun() = !view.reset_input_password.text.isNullOrEmpty(),
+                getString(R.string.length_must_be_more) to fun() = view.reset_input_password.text!!.length > 8)
         )
 
         Validator(
@@ -122,10 +115,8 @@ class ResetFragment : Fragment() {
             view.reset_input_password_confirmation,
             view.reset_input_layout_password_confirmation,
             mapOf(
-                getString(R.string.field_is_empty) to fun() =
-                    !view.reset_input_password_confirmation.text.isNullOrEmpty(),
-                getString(R.string.password_not_the_same) to fun() =
-                    view.reset_input_password_confirmation.text.toString() == view.reset_input_password.text.toString()
+                getString(R.string.field_is_empty) to fun() = !view.reset_input_password_confirmation.text.isNullOrEmpty(),
+                getString(R.string.password_not_the_same) to fun() = view.reset_input_password_confirmation.text.toString() == view.reset_input_password.text.toString()
             )
         )
     }

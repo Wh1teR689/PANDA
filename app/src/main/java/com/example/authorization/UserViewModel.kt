@@ -6,7 +6,7 @@ class UserViewModel(
     var email: String = "",
     var password: String = ""
 ) : ViewModel() {
-    var existingUsers: MutableMap<String, String> = mutableMapOf()
+    private var existingUsers: MutableMap<String, String> = mutableMapOf()
 
     fun isUserExists() : Boolean{
         return existingUsers.containsKey(email)
