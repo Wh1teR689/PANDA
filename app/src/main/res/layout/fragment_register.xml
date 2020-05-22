@@ -18,6 +18,16 @@
         android:layout_height="match_parent"
         tools:context=".RegisterFragment">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/logo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/register_input_layout_email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -32,7 +42,7 @@
             app:layout_constraintBottom_toTopOf="@+id/register_input_layout_password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline_main"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintVertical_bias="0">
 
@@ -84,13 +94,23 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="@dimen/component_margin_vertical"
             android:text="@string/existing_account"
+            android:textAllCaps="false"
             android:textColor="@color/buttonTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textAllCaps="false"/>
+            app:layout_constraintTop_toBottomOf="@+id/register_button_create_account"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="200dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
